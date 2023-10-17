@@ -13,6 +13,7 @@ import com.hjz.storyapp.data.response.ErrorResponse
 import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.data.response.LoginResponse
 import com.hjz.storyapp.data.response.StoryResponse
+import com.hjz.storyapp.main.StoryViewModel
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,7 +33,7 @@ class UserRepository private constructor(
         get() = _errorMessage
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading : LiveData<Boolean> get() = _isLoading
+    val isLoading : LiveData<Boolean> = _isLoading
 
 
     private val _isSuccess = MutableLiveData<Boolean>()
@@ -116,8 +117,32 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
+    private val _listStory = MutableLiveData<List<ListStoryItem>> ()
+    val listStory : LiveData<List<ListStoryItem>> = _listStory
+    fun getListStory(token : String) {
+        _isLoading.value = true
+        ApiConfigStory.getApiService(token).getStories().enqueue(object : Callback<StoryResponse>{
+            override fun onResponse(
+                call: Call<StoryResponse>,
+                response: Response<StoryResponse>
+            ) {
+                _isLoading.value = false
+                if (response.isSuccessful){
+                    _listStory.postValue(response.body()?.listStory)
+                }
+            }
+
+            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e("UserViewModel", "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
 
     companion object {
+
         @Volatile
         private var instance: UserRepository? = null
         fun getInstance(

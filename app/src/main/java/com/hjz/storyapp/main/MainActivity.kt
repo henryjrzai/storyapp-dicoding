@@ -75,9 +75,9 @@ class MainActivity : AppCompatActivity() {
         binding.rvStory.setHasFixedSize(true)
         binding.rvStory.adapter = adapter
 
-        storyViewModel.getListStory(token)
+        viewModel.getListStory(token)
 
-        storyViewModel.listStory.observe(this){ story ->
+        viewModel.listStory.observe(this) { story ->
             if (story.isNotEmpty()){
                 adapter.setListStory(story)
             } else {
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        storyViewModel.isLoading.observe(this){
+        viewModel.isLoading.observe(this){
             showLoading(it)
         }
     }

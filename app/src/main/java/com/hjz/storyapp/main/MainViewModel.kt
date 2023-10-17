@@ -16,11 +16,15 @@ class MainViewModel (private val repository: UserRepository) : ViewModel(){
         return repository.getSession().asLiveData()
     }
 
-
-
     fun logout() {
         viewModelScope.launch {
             repository.logout()
         }
     }
+
+    fun getListStory(token : String) {
+        repository.getListStory(token)
+    }
+    val listStory : LiveData<List<ListStoryItem>> = repository.listStory
+    val isLoading : LiveData<Boolean> = repository.isLoading
 }
