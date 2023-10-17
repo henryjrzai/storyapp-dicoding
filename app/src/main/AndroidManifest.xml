@@ -15,6 +15,12 @@
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".addStories.AddStoriesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".addStories.CameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".main.DetailStory"
             android:exported="false" />
         <activity

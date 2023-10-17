@@ -12,4 +12,8 @@
     <string name="descriptionDummy">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, aut consequuntur deleniti,
         dicta hic iste itaque iure labore laborum magni nisi nobis pariatur quibusdam ratione repellat sequi sit tempore totam?
     </string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="description">Deskripsi</string>
 </resources>

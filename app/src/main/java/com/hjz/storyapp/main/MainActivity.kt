@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjz.storyapp.R
+import com.hjz.storyapp.addStories.AddStoriesActivity
 import com.hjz.storyapp.data.model.UserModelFactory
 import com.hjz.storyapp.data.pref.UserLogin
 import com.hjz.storyapp.databinding.ActivityMainBinding
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         getSession()
 
         binding.btnAddStory.setOnClickListener {
-            viewModel.logout()
+            startActivity(Intent(this@MainActivity, AddStoriesActivity::class.java))
         }
     }
 
