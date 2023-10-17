@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="greeting">Selamat datang di Story App, temukan kisah-kisah menarik dan berbagi cerita inspiratif bersama komunitas kami!</string>
+    <string name="login">Masuk</string>
+    <string name="signup">Daftar</string>
+    <string name="emailHit">example@mail.com</string>
+    <string name="passwordHint">********</string>
+    <string name="nameHint">Nama Kamu</string>
+    <string name="inputData">Isi Dulu</string>
+    <string name="signupSuccessAlert">Pendaftaran Berhasil</string>
+    <string name="timeDummy">16 Oktober 2023 12:00</string>
+    <string name="descriptionDummy">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, aut consequuntur deleniti,
+        dicta hic iste itaque iure labore laborum magni nisi nobis pariatur quibusdam ratione repellat sequi sit tempore totam?
+    </string>
+</resources>
