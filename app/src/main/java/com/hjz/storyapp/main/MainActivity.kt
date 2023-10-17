@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjz.storyapp.R
 import com.hjz.storyapp.data.model.UserModelFactory
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         UserModelFactory.getInstance(this)
     }
+
+    private lateinit var adapter : ListStoryAdapter
+
+    private lateinit var storyViewModel: StoryViewModel
 
     private lateinit var name : String
     private lateinit var token : String
@@ -47,12 +52,41 @@ class MainActivity : AppCompatActivity() {
             userId = user.userId
             isLogin = user.isLogin.toString()
 
+            Log.d("MyToken", token)
+
             Log.d("token saya", "name : ${name}, token : ${token}, isLogin : ${isLogin}")
+
+            getListStory(token)
 
             if (!user.isLogin){
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()
             }
+        }
+    }
+
+    private fun getListStory(token : String){
+        storyViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[StoryViewModel::class.java]
+
+        adapter = ListStoryAdapter()
+        adapter.notifyDataSetChanged()
+
+        binding.rvStory.layoutManager = LinearLayoutManager(this)
+        binding.rvStory.setHasFixedSize(true)
+        binding.rvStory.adapter = adapter
+
+        storyViewModel.getListStory(token)
+
+        storyViewModel.listStory.observe(this){ story ->
+            if (story.isNotEmpty()){
+                adapter.setListStory(story)
+            } else {
+                Log.d("ListStory", "Empty Data")
+            }
+        }
+
+        storyViewModel.isLoading.observe(this){
+            showLoading(it)
         }
     }
 

@@ -116,31 +116,6 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
-    private val _listStory = MutableLiveData<List<ListStoryItem>>()
-    val listStoryItem : LiveData<List<ListStoryItem>> = _listStory
-    fun getAllStory(token : String){
-        _isLoading.value = false
-        _isLoading.value = true
-        ApiConfigStory.getApiService(token).getStories(token)
-            .enqueue(object : Callback <StoryResponse>{
-                override fun onResponse(
-                    call: Call<StoryResponse>,
-                    response: Response<StoryResponse>
-                ) {
-                    if (response.isSuccessful){
-                        _isLoading.value = false
-                        _listStory.postValue(response.body()?.listStory)
-                    } else {
-                        Log.e("ListStoryRepo", "onFailure: ${response.message()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
-                    Log.e("ListStoryRepo", "onFailure: ${t.message}")
-                }
-
-            })
-    }
 
     companion object {
         @Volatile
