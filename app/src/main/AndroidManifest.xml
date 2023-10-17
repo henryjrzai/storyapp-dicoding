@@ -15,6 +15,9 @@
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".main.DetailStory"
+            android:exported="false" />
+        <activity
             android:name=".signup.SignupActivity"
             android:exported="false" />
         <activity

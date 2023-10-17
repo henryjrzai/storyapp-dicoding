@@ -9,10 +9,13 @@ import com.hjz.storyapp.data.api.ApiConfigStory
 import com.hjz.storyapp.data.api.ApiService
 import com.hjz.storyapp.data.pref.UserLogin
 import com.hjz.storyapp.data.pref.UserPreference
+import com.hjz.storyapp.data.response.DetailStoryResponse
 import com.hjz.storyapp.data.response.ErrorResponse
 import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.data.response.LoginResponse
+import com.hjz.storyapp.data.response.Story
 import com.hjz.storyapp.data.response.StoryResponse
+import com.hjz.storyapp.main.DetailStory
 import com.hjz.storyapp.main.StoryViewModel
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
@@ -117,6 +120,7 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
+    // List Stories
     private val _listStory = MutableLiveData<List<ListStoryItem>> ()
     val listStory : LiveData<List<ListStoryItem>> = _listStory
     fun getListStory(token : String) {
@@ -140,6 +144,29 @@ class UserRepository private constructor(
         })
     }
 
+    // Detail Stories
+    private val _detailStories = MutableLiveData<Story>()
+    val detailStories: LiveData<Story> = _detailStories
+    fun setDetailStories(token: String, id : String){
+        _isLoading.value = true
+        ApiConfigStory.getApiService(token).getDetailStories(id)
+            .enqueue(object : Callback<DetailStoryResponse>{
+                override fun onResponse(
+                    call: Call<DetailStoryResponse>,
+                    response: Response<DetailStoryResponse>
+                ) {
+                    _isLoading.value = false
+                    if (response.isSuccessful){
+                        _detailStories.postValue(response.body()?.story)
+                    }
+                }
+
+                override fun onFailure(call: Call<DetailStoryResponse>, t: Throwable) {
+                    _isLoading.value = true
+                    Log.d("DetailRepo", "onFailure : ${t.message}")
+                }
+            })
+    }
 
     companion object {
 

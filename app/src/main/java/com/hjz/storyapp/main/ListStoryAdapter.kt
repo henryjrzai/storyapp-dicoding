@@ -1,5 +1,6 @@
 package com.hjz.storyapp.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -28,6 +29,11 @@ class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>(
                 Glide.with(itemView)
                     .load(story.photoUrl)
                     .into(storyImage)
+                cvItemStories.setOnClickListener {
+                    val intent = Intent(it.context, DetailStory::class.java)
+                    intent.putExtra(DetailStory.EXTRA_ID, story.id)
+                    it.context.startActivity(intent)
+                }
             }
         }
     }
