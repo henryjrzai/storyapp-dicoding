@@ -56,12 +56,12 @@ class DetailStory : AppCompatActivity() {
         }
         viewModel.detailStories.observe(this){stories ->
             binding.apply {
-                tvProfileName.text = stories.name
+                tvDetailName.text = stories.name
                 tvTime.text = stories.createdAt.withDateFormat()
-                tvDescription.text = stories.description
+                tvDetailDescription.text = stories.description
                 Glide.with(this@DetailStory)
                     .load(stories.photoUrl)
-                    .into(imgDetailStory)
+                    .into(ivDetailPhoto)
             }
         }
     }

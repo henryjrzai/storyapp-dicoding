@@ -24,12 +24,12 @@ class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>(
     inner class StoryViewHolder(val binding : ListStoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(story : ListStoryItem){
             with(binding){
-                tvProfileName.text = story.name
+                tvItemName.text = story.name
                 tvTime.text = story.createdAt.withDateFormat()
                 tvDescription.text = story.description
                 Glide.with(itemView)
                     .load(story.photoUrl)
-                    .into(storyImage)
+                    .into(ivItemPhoto)
                 cvItemStories.setOnClickListener {
                     val intent = Intent(it.context, DetailStory::class.java)
                     intent.putExtra(DetailStory.EXTRA_ID, story.id)

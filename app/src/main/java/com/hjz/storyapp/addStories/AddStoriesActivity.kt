@@ -62,7 +62,7 @@ class AddStoriesActivity : AppCompatActivity() {
 
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnCamera.setOnClickListener { startCamera() }
-        binding.btnUpload.setOnClickListener { uploadStories() }
+        binding.buttonAdd.setOnClickListener { uploadStories() }
     }
 
     private fun getSession() {
@@ -110,7 +110,7 @@ class AddStoriesActivity : AppCompatActivity() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
-            val description = binding.edDescription.text.toString()
+            val description = binding.edAddDescription.text.toString()
 
             viewModel.addStories(token, imageFile, description)
             viewModel.isLoading.observe(this){

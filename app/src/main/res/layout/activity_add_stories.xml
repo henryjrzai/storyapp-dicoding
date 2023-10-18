@@ -45,7 +45,7 @@
         app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
     <com.hjz.storyapp.components.editText.DescriptionEditText
-        android:id="@+id/ed_description"
+        android:id="@+id/ed_add_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_camera" />
 
     <Button
-        android:id="@+id/btn_upload"
+        android:id="@+id/button_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/upload"
