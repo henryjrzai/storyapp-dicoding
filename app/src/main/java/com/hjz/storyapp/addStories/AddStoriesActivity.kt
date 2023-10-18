@@ -20,6 +20,7 @@ import com.hjz.storyapp.data.api.ApiConfigStory
 import com.hjz.storyapp.data.model.UserModelFactory
 import com.hjz.storyapp.data.response.AddStoriesResponse
 import com.hjz.storyapp.databinding.ActivityAddStoriesBinding
+import com.hjz.storyapp.main.MainActivity
 import com.hjz.storyapp.utils.reduceFileImage
 import com.hjz.storyapp.utils.uriToFile
 
@@ -119,6 +120,9 @@ class AddStoriesActivity : AppCompatActivity() {
             viewModel.successMessage.observe(this){
                 if (it != null) {
                     showToast(it)
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                 }
             }
             viewModel.errorMessage.observe(this){
