@@ -1,8 +1,10 @@
 package com.hjz.storyapp.main
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,6 +12,7 @@ import com.hjz.storyapp.R
 import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.databinding.ListStoryBinding
 import com.hjz.storyapp.utils.withDateFormat
+import androidx.core.util.Pair
 
 class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>() {
 
@@ -33,7 +36,7 @@ class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>(
                 cvItemStories.setOnClickListener {
                     val intent = Intent(it.context, DetailStory::class.java)
                     intent.putExtra(DetailStory.EXTRA_ID, story.id)
-                    it.context.startActivity(intent)
+                    itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
                 }
             }
         }

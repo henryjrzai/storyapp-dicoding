@@ -7,6 +7,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hjz.storyapp.R
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAction(){
         binding.btnAddStory.setOnClickListener {
-            startActivity(Intent(this@MainActivity, AddStoriesActivity::class.java))
+            val intent = Intent(this@MainActivity, AddStoriesActivity::class.java)
+            startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle())
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
