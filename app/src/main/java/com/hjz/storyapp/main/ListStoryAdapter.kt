@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.hjz.storyapp.R
 import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.databinding.ListStoryBinding
+import com.hjz.storyapp.utils.withDateFormat
 
 class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>() {
 
@@ -24,7 +25,7 @@ class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>(
         fun bind(story : ListStoryItem){
             with(binding){
                 tvProfileName.text = story.name
-                tvTime.text = story.createdAt
+                tvTime.text = story.createdAt.withDateFormat()
                 tvDescription.text = story.description
                 Glide.with(itemView)
                     .load(story.photoUrl)

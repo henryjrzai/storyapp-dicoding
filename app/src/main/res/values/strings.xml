@@ -17,4 +17,6 @@
     <string name="upload">Unggah</string>
     <string name="description">Deskripsi</string>
     <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+
+    <string name="dateFormat">Diunggap pada %1$s</string>
 </resources>
