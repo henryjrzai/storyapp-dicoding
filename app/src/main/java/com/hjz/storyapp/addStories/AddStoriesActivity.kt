@@ -22,13 +22,6 @@ import com.hjz.storyapp.data.response.AddStoriesResponse
 import com.hjz.storyapp.databinding.ActivityAddStoriesBinding
 import com.hjz.storyapp.utils.reduceFileImage
 import com.hjz.storyapp.utils.uriToFile
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class AddStoriesActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddStoriesBinding
@@ -118,39 +111,21 @@ class AddStoriesActivity : AppCompatActivity() {
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
             val description = binding.edDescription.text.toString()
-            showLoading(true)
 
-            val requestBody = description.toRequestBody("text/plain".toMediaType())
-            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-            val multipartBody = MultipartBody.Part.createFormData(
-                "photo",
-                imageFile.name,
-                requestImageFile
-            )
-            ApiConfigStory.getApiService(token).addStories(multipartBody, requestBody)
-                .enqueue(object : Callback<AddStoriesResponse>{
-                    override fun onResponse(
-                        call: Call<AddStoriesResponse>,
-                        response: Response<AddStoriesResponse>
-                    ) {
-                        showLoading(true)
-                        if (response.isSuccessful) {
-                            val responseBody = response.body()
-                            if (responseBody != null && !responseBody.error) {
-                                Toast.makeText(this@AddStoriesActivity, responseBody.message, Toast.LENGTH_SHORT).show()
-                                showLoading(false)
-                                finish()
-                            }
-                        } else {
-                            Toast.makeText(this@AddStoriesActivity, response.message(), Toast.LENGTH_SHORT).show()
-                            showLoading(false)
-                        }
-                    }
-
-                    override fun onFailure(call: Call<AddStoriesResponse>, t: Throwable) {
-                        Toast.makeText(this@AddStoriesActivity, "Gagal instance Retrofit", Toast.LENGTH_SHORT).show()
-                    }
-                })
+            viewModel.addStories(token, imageFile, description)
+            viewModel.isLoading.observe(this){
+                showLoading(it)
+            }
+            viewModel.successMessage.observe(this){
+                if (it != null) {
+                    showToast(it)
+                }
+            }
+            viewModel.errorMessage.observe(this){
+                if (it != null) {
+                    showToast(it)
+                }
+            }
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 

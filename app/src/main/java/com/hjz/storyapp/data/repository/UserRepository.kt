@@ -9,19 +9,23 @@ import com.hjz.storyapp.data.api.ApiConfigStory
 import com.hjz.storyapp.data.api.ApiService
 import com.hjz.storyapp.data.pref.UserLogin
 import com.hjz.storyapp.data.pref.UserPreference
+import com.hjz.storyapp.data.response.AddStoriesResponse
 import com.hjz.storyapp.data.response.DetailStoryResponse
 import com.hjz.storyapp.data.response.ErrorResponse
 import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.data.response.LoginResponse
 import com.hjz.storyapp.data.response.Story
 import com.hjz.storyapp.data.response.StoryResponse
-import com.hjz.storyapp.main.DetailStory
-import com.hjz.storyapp.main.StoryViewModel
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
 import retrofit2.Response
+import java.io.File
 
 class UserRepository private constructor(
     private val apiService: ApiService,
@@ -167,6 +171,37 @@ class UserRepository private constructor(
                 }
             })
     }
+
+    fun addStories(token : String, imageFile : File, description : String){
+        _isLoading.value = true
+        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+        val multipartBody = MultipartBody.Part.createFormData(
+            "photo",
+            imageFile.name,
+            requestImageFile
+        )
+        ApiConfigStory.getApiService(token).addStories(multipartBody, requestBody)
+            .enqueue(object : Callback<AddStoriesResponse>{
+                override fun onResponse(
+                    call: Call<AddStoriesResponse>,
+                    response: Response<AddStoriesResponse>
+                ) {
+                    if (response.isSuccessful){
+                        _isLoading.value = false
+                        _successMessage.value = response.message().toString()
+                    } else {
+                        _errorMessage.value = response.errorBody().toString()
+                    }
+                }
+
+                override fun onFailure(call: Call<AddStoriesResponse>, t: Throwable) {
+                    _errorMessage.value = t.message
+                }
+            })
+    }
+
+
 
 
     companion object {
