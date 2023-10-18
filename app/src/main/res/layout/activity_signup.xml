@@ -39,6 +39,8 @@
         android:text="@string/signup"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
@@ -49,12 +51,16 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.hjz.storyapp.components.editText.EmailEditText
         android:id="@+id/ed_register_email"
         style="@style/EditTextEmailPassword"
         android:layout_marginTop="8dp"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintEnd_toEndOf="@+id/ed_register_name"
         app:layout_constraintStart_toStartOf="@+id/ed_register_name"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
@@ -64,6 +70,8 @@
         style="@style/EditTextEmailPassword"
         android:layout_marginTop="8dp"
         android:inputType="textPassword"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintEnd_toEndOf="@+id/ed_register_email"
         app:layout_constraintStart_toStartOf="@+id/ed_register_email"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
@@ -71,6 +79,8 @@
     <com.hjz.storyapp.components.buttons.SignupButton
         android:id="@+id/signup_btn"
         style="@style/LoginSignupButton"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintEnd_toEndOf="@+id/ed_register_password"
         app:layout_constraintStart_toStartOf="@+id/ed_register_password"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />

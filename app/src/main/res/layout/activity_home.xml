@@ -25,7 +25,7 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvHomeDescription"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -36,6 +36,8 @@
         android:textAlignment="center"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
@@ -57,8 +59,10 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
         android:text="@string/login"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHomeDescription" />
 
     <Button
         android:id="@+id/btn_signup"
@@ -66,6 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:text="@string/signup"
+        android:alpha="0"
+        tools:alpha="100"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/btn_login" />
 

@@ -39,7 +39,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getSession()
+        setupAction()
+    }
 
+    private fun setupAction(){
         binding.btnAddStory.setOnClickListener {
             startActivity(Intent(this@MainActivity, AddStoriesActivity::class.java))
         }

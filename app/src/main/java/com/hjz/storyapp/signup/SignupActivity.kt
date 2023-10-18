@@ -1,5 +1,7 @@
 package com.hjz.storyapp.signup
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -33,6 +35,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupButton()
+        playAnimation()
 
         //val viewModel = ViewModelProvider(this)[SignupViewModel::class.java]
         viewModel.successMessage.observe(this) { message ->
@@ -77,6 +80,28 @@ class SignupActivity : AppCompatActivity() {
             viewModel.isLoading.observe(this) { isLoading ->
                 showLoading(isLoading)
             }
+        }
+    }
+
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.imageView, View.TRANSLATION_Y, -30f, 30f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val title = ObjectAnimator.ofFloat(binding.textView3, View.ALPHA, 1f).setDuration(100)
+        val sigUp = ObjectAnimator.ofFloat(binding.signupBtn, View.ALPHA, 1f).setDuration(100)
+        val name = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(100)
+        val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(100)
+        val password = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(100)
+
+        val together = AnimatorSet().apply {
+            playTogether(sigUp)
+        }
+        AnimatorSet().apply {
+            playSequentially(title,name, email, password, together)
+            start()
         }
     }
 
