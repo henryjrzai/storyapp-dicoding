@@ -18,5 +18,8 @@
     <string name="description">Descripción</string>
     <string name="empty_image_warning">Por favor, carga primero un archivo de imagen.</string>
 
+    <string name="setting">Ajustes</string>
+    <string name="logout">Cerrar sesión</string>
+
     <string name="dateFormat">Publicado en %1$s</string>
 </resources>

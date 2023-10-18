@@ -8,5 +8,6 @@ fun String.withDateFormat(): String {
     val date = inputFormat.parse(this)
 
     val outputFormat = SimpleDateFormat("E, dd MMMM yyyy HH:mm", Locale.US)
+
     return outputFormat.format(date!!)
 }

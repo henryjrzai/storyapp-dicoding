@@ -3,6 +3,7 @@ package com.hjz.storyapp.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -41,6 +42,19 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnAddStory.setOnClickListener {
             startActivity(Intent(this@MainActivity, AddStoriesActivity::class.java))
+        }
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_settings -> {
+                    startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                    true
+                }
+                R.id.menu_logout -> {
+                    viewModel.logout()
+                    true
+                }
+                else -> false
+            }
         }
     }
 

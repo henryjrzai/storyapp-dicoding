@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.hjz.storyapp.data.model.UserModelFactory
 import com.hjz.storyapp.databinding.ActivityDetailStoryBinding
 import com.hjz.storyapp.home.HomeActivity
+import com.hjz.storyapp.utils.withDateFormat
 
 class DetailStory : AppCompatActivity() {
 
@@ -56,7 +57,7 @@ class DetailStory : AppCompatActivity() {
         viewModel.detailStories.observe(this){stories ->
             binding.apply {
                 tvProfileName.text = stories.name
-                tvTime.text = stories.createdAt
+                tvTime.text = stories.createdAt.withDateFormat()
                 tvDescription.text = stories.description
                 Glide.with(this@DetailStory)
                     .load(stories.photoUrl)
