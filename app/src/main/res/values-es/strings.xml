@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="greeting">Bienvenido a Story App, descubre historias interesantes y comparte relatos inspiradores con nuestra comunidad.</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="signup">Registrarse</string>
+    <string name="emailHit">ejemplo@mail.com</string>
+    <string name="passwordHint">********</string>
+    <string name="nameHint">Tu Nombre</string>
+    <string name="inputData">Completa esto primero</string>
+    <string name="signupSuccessAlert">Registro exitoso</string>
+    <string name="timeDummy">16 de octubre de 2023 12:00</string>
+    <string name="descriptionDummy">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, aut consequuntur deleniti,
+        dicta hic iste itaque iure labore laborum magni nisi nobis pariatur quibusdam ratione repellat sequi sit tempore totam?
+    </string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
+    <string name="upload">Subir</string>
+    <string name="description">Descripción</string>
+    <string name="empty_image_warning">Por favor, carga primero un archivo de imagen.</string>
+
+    <string name="dateFormat">Publicado en %1$s</string>
+</resources>
