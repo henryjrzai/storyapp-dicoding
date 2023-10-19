@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -60,6 +62,7 @@ class AddStoriesActivity : AppCompatActivity() {
         }
 
         getSession()
+        setupAction()
 
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnCamera.setOnClickListener { startCamera() }
@@ -144,6 +147,20 @@ class AddStoriesActivity : AppCompatActivity() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun setupAction(){
+        val edAddDescription = binding.edAddDescription
+        val addBtn = binding.buttonAdd
+        edAddDescription.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val isAddDescriptionNotEmpty = edAddDescription.text.toString().isNotEmpty()
+                addBtn.isEnabled = isAddDescriptionNotEmpty
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
     }
 
     companion object {

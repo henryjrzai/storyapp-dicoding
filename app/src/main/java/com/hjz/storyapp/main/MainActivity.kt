@@ -110,11 +110,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getListStory(token)
-    }
-
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
