@@ -22,4 +22,5 @@
     <string name="logout">Keluar</string>
 
     <string name="dateFormat">Diunggap pada %1$s</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
