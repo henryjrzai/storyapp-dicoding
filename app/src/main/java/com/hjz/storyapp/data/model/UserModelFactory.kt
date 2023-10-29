@@ -9,6 +9,7 @@ import com.hjz.storyapp.data.repository.UserRepository
 import com.hjz.storyapp.login.LoginViewModel
 import com.hjz.storyapp.main.DetailViewModel
 import com.hjz.storyapp.main.MainViewModel
+import com.hjz.storyapp.maps.MapsViewModel
 import com.hjz.storyapp.signup.SignupViewModel
 
 class UserModelFactory (private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory(){
@@ -29,6 +30,9 @@ class UserModelFactory (private val repository: UserRepository) : ViewModelProvi
             }
             modelClass.isAssignableFrom(AddStoriesViewModel::class.java) -> {
                 AddStoriesViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)

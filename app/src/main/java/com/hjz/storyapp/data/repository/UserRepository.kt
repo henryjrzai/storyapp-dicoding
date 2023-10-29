@@ -201,7 +201,29 @@ class UserRepository private constructor(
             })
     }
 
+    // Story Maps
+    private val _mapStory = MutableLiveData<List<ListStoryItem>> ()
+    val mapStory : LiveData<List<ListStoryItem>> = _mapStory
+    fun getStoriesWithLocation(token : String) {
+        _isLoading.value = true
+        ApiConfigStory.getApiService(token).getStoriesWithLocation()
+            .enqueue(object : Callback<StoryResponse>{
+                override fun onResponse(
+                    call: Call<StoryResponse>,
+                    response: Response<StoryResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        _isLoading.value = false
+                        _mapStory.postValue(response.body()?.listStory)
+                    }
+                }
 
+                override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+    }
 
 
     companion object {

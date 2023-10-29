@@ -10,10 +10,10 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hjz.storyapp.maps.MapsActivity
 import com.hjz.storyapp.R
 import com.hjz.storyapp.addStories.AddStoriesActivity
 import com.hjz.storyapp.data.model.UserModelFactory
-import com.hjz.storyapp.data.pref.UserLogin
 import com.hjz.storyapp.databinding.ActivityMainBinding
 import com.hjz.storyapp.home.HomeActivity
 
@@ -50,6 +50,10 @@ class MainActivity : AppCompatActivity() {
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.menu_maps -> {
+                    startActivity(Intent(this@MainActivity, MapsActivity::class.java))
+                    true
+                }
                 R.id.menu_settings -> {
                     startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
                     true
