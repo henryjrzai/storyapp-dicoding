@@ -3,10 +3,15 @@ package com.hjz.storyapp.data.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.google.gson.Gson
 import com.hjz.storyapp.data.api.ApiConfig
 import com.hjz.storyapp.data.api.ApiConfigStory
 import com.hjz.storyapp.data.api.ApiService
+import com.hjz.storyapp.data.local.StoryPagingSource
 import com.hjz.storyapp.data.pref.UserLogin
 import com.hjz.storyapp.data.pref.UserPreference
 import com.hjz.storyapp.data.response.AddStoriesResponse
@@ -44,7 +49,6 @@ class UserRepository private constructor(
 
 
     private val _isSuccess = MutableLiveData<Boolean>()
-    val isSuccess : LiveData<Boolean> get() = _isSuccess
 
     private val _loginResponse = MutableLiveData<LoginResponse>()
     val loginResponse : LiveData<LoginResponse> get() = _loginResponse
@@ -124,30 +128,6 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
-    // List Stories
-    private val _listStory = MutableLiveData<List<ListStoryItem>> ()
-    val listStory : LiveData<List<ListStoryItem>> = _listStory
-    fun getListStory(token : String) {
-        _isLoading.value = true
-        ApiConfigStory.getApiService(token).getStories().enqueue(object : Callback<StoryResponse>{
-            override fun onResponse(
-                call: Call<StoryResponse>,
-                response: Response<StoryResponse>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful){
-                    _listStory.postValue(response.body()?.listStory)
-                }
-            }
-
-            override fun onFailure(call: Call<StoryResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e("UserViewModel", "onFailure: ${t.message}")
-            }
-
-        })
-    }
-
     // Detail Stories
     private val _detailStories = MutableLiveData<Story>()
     val detailStories: LiveData<Story> = _detailStories
@@ -225,6 +205,16 @@ class UserRepository private constructor(
             })
     }
 
+    fun getStory(): LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService, userPreference)
+            }
+        ).liveData
+    }
 
     companion object {
 
@@ -237,5 +227,6 @@ class UserRepository private constructor(
             instance ?: synchronized(this) {
                 instance ?: UserRepository(apiService, userPreference)
             }.also { instance = it }
+
     }
 }

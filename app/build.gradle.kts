@@ -71,4 +71,6 @@ dependencies {
     implementation("androidx.camera:camera-view:$cameraxVersion")
 
     implementation("androidx.exifinterface:exifinterface:1.3.6")
+
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
 }

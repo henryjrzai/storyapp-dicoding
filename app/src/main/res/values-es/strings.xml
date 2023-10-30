@@ -22,4 +22,6 @@
     <string name="logout">Cerrar sesión</string>
 
     <string name="dateFormat">Publicado en %1$s</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="retry">Reintentar</string>
 </resources>

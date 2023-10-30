@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.hjz.storyapp.data.pref.UserLogin
 import com.hjz.storyapp.data.repository.UserRepository
 import com.hjz.storyapp.data.response.ListStoryItem
@@ -22,9 +24,8 @@ class MainViewModel (private val repository: UserRepository) : ViewModel(){
         }
     }
 
-    fun getListStory(token : String) {
-        repository.getListStory(token)
-    }
-    val listStory : LiveData<List<ListStoryItem>> = repository.listStory
+    val stories: LiveData<PagingData<ListStoryItem>> =
+        repository.getStory().cachedIn(viewModelScope)
+
     val isLoading : LiveData<Boolean> = repository.isLoading
 }

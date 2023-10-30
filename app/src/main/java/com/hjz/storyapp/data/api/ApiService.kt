@@ -2,12 +2,14 @@ package com.hjz.storyapp.data.api
 
 import com.hjz.storyapp.data.response.AddStoriesResponse
 import com.hjz.storyapp.data.response.DetailStoryResponse
+import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.data.response.LoginResponse
 import com.hjz.storyapp.data.response.RegisterResponse
 import com.hjz.storyapp.data.response.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -34,7 +36,10 @@ interface ApiService {
     ): Call<LoginResponse>
 
     @GET("stories")
-    fun getStories(): Call<StoryResponse>
+    suspend fun getStory(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<StoryResponse>
 
     @GET("stories/{id}")
     fun getDetailStories(

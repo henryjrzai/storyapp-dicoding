@@ -13,18 +13,26 @@ import com.hjz.storyapp.data.response.ListStoryItem
 import com.hjz.storyapp.databinding.ListStoryBinding
 import com.hjz.storyapp.utils.withDateFormat
 import androidx.core.util.Pair
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 
-class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>() {
+class ListStoryAdapter : PagingDataAdapter<ListStoryItem, ListStoryAdapter.StoryViewHolder>(DIFF_CALLBACK) {
 
-    private val listStory = ArrayList<ListStoryItem>()
-
-    fun setListStory( story : List<ListStoryItem>) {
-        listStory.clear()
-        listStory.addAll(story)
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
+        val binding = ListStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return StoryViewHolder(binding)
     }
 
-    inner class StoryViewHolder(val binding : ListStoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
+        val story = getItem(position)
+        if (story != null) {
+            holder.bind(story)
+        }
+    }
+
+    inner class StoryViewHolder(private val binding : ListStoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(story : ListStoryItem){
             with(binding){
                 tvItemName.text = story.name
@@ -42,14 +50,15 @@ class ListStoryAdapter : RecyclerView.Adapter<ListStoryAdapter.StoryViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryViewHolder {
-        val binding = ListStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return StoryViewHolder(binding)
-    }
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
+            override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem == newItem
+            }
 
-    override fun getItemCount(): Int = listStory.size
-
-    override fun onBindViewHolder(holder: StoryViewHolder, position: Int) {
-        holder.bind(listStory[position])
+            override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 }
